@@ -46,15 +46,15 @@ s <- apply(training, 2, sd)
 training <- scale(training, center = m, scale = s)
 test <- scale(test, center = m, scale = s)
 
+```
+
+```{r, include=FALSE, echo = FALSE}
 model <- keras_model_sequential()
 model |>
   layer_dense(units = 5, activation = 'relu', input_shape = c(13)) |>
   layer_dense(units = 1)
 
 
-```
-
-```{r, include=FALSE, echo = FALSE}
 model %>% compile(loss = 'mse',
                   optimizer = 'rmsprop', 
                   metrics = 'mae') 
@@ -72,7 +72,7 @@ fit(training,trainingtarget,
 -   Neural networks are made of layered neurons
 -   Can work with a large volume of data
 
-## Examples of the Use of Neural Networks
+**Examples of the Use of Neural Networks** 
 
 * Computer Vision
     + Facial Recognition
@@ -95,9 +95,10 @@ knitr::include_graphics("perceptron.png")
 ## Boston: Predicting Median Value of Owner Occupied Homes
 -   14 Features, including the outcome variable
 -   506 Rows
--   keras_model_sequential
--   Mean Squared Error loss function
--   Training for 100 epochs
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("code_sample.png")
+```
 
 ## Visual of Neural Network on the Boston Dataset
 
@@ -120,17 +121,51 @@ knitr::include_graphics("training_graphics.png")
 ```
 
 
-## Calculated Results on the Test Set
-
-```{r, echo = TRUE}
-model %>% evaluate(test, testtarget)
-pred <- model %>% predict(test)
-paste("Mean Squared Error: ", mean((testtarget-pred)^2))
-```
-
-## Predicted Value vs Actual Value
+## Test Set Results
 
 ```{r}
+#model %>% evaluate(test, testtarget)
+pred <- model %>% predict(test)
+paste("Mean Squared Error: ", mean((testtarget-pred)^2))
 plot(testtarget, pred, xlab=" Ground Truth", ylab="Predicted Value",
      main="Median value of owner-occupied homes in $1000s") 
 ```
+
+## Hyperparameter Tuning
+*   Loss Functions
+*   Optimization Functions
+*   Activation Functions
+*   Other tuneable parameters
+    + Training Epochs
+    + Batch Size
+*   Network Architecture
+    + Hidden Layers
+    + Neuron Connections
+
+## Pros and Cons
+
+:::::::::::::: {.columns}
+::: {.column}
+Pros
+
+* Can be trained on large amounts of data 
+* Effective at certain tasks
+* Less need for feature engineering
+:::
+::: {.column}
+Cons
+
+* Less interpretable
+* Requires large amount of processing power
+* Overfitting
+* Potential for introducing biases from the real world 
+:::
+::::::::::::::          
+
+## Conclusion
+
+*   Many Applications
+*   More research
+    + Capabilities
+    + Problems
+*   Libraries and existing architectures help their development
