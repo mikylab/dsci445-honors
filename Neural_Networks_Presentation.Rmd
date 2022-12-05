@@ -1,0 +1,136 @@
+---
+title: "Neural Networks"
+author: "Mikyla"
+date: "2022-12-05"
+output:
+  beamer_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r cars, include=FALSE, echo = FALSE}
+library(MASS)
+library(keras)
+library(mlbench)
+library(dplyr)
+library(magrittr)
+library(neuralnet)
+
+data <- Boston
+str(data)
+data %<>% mutate_if(is.factor, as.numeric)
+
+
+n <- neuralnet(medv ~ .,
+               data = data,
+               hidden = c(12,7),
+               linear.output = F,
+               lifesign = 'full',
+               rep=1)
+```
+
+```{r, include=FALSE, echo = FALSE}
+set.seed(445)
+ind <- sample(2, nrow(data), replace = T, prob = c(.7, .3))
+training <- data[ind==1,1:13]
+test <- data[ind==2, 1:13]
+trainingtarget <- data[ind==1, 14]
+testtarget <- data[ind==2, 14]
+
+
+m <- colMeans(training)
+s <- apply(training, 2, sd)
+training <- scale(training, center = m, scale = s)
+test <- scale(test, center = m, scale = s)
+
+model <- keras_model_sequential()
+model |>
+  layer_dense(units = 5, activation = 'relu', input_shape = c(13)) |>
+  layer_dense(units = 1)
+
+
+```
+
+```{r, include=FALSE, echo = FALSE}
+model %>% compile(loss = 'mse',
+                  optimizer = 'rmsprop', 
+                  metrics = 'mae') 
+
+mymodel <- model |>          
+fit(training,trainingtarget,
+             epochs = 100,
+             batch_size = 32,
+             validation_split = 0.2)
+```
+
+## What is a Deep Neural Network 
+
+-   Computers learn to process data in a way that mimics the human brain. 
+-   Neural networks are made of layered neurons
+-   Can work with a large volume of data
+
+## Examples of the Use of Neural Networks
+
+* Computer Vision
+    + Facial Recognition
+    + Object Detection
+*   Speech Recognition
+    + Amazon Alexa
+    + Voice Transcription
+*   Natural Language Processing
+
+
+## How Do Neural Networks Work
+1.  Input
+2.  Hidden Layers
+3.  Output Layer
+
+```{r, echo=FALSE, out.height="70%", out.width="70%"}
+knitr::include_graphics("perceptron.png")
+```
+
+## Boston: Predicting Median Value of Owner Occupied Homes
+-   14 Features, including the outcome variable
+-   506 Rows
+-   keras_model_sequential
+-   Mean Squared Error loss function
+-   Training for 100 epochs
+
+## Visual of Neural Network on the Boston Dataset
+
+```{r, include=FALSE, echo = FALSE}
+plot(n,col.hidden = 'darkgreen',
+     col.hidden.synapse = 'darkgreen',
+     show.weights = F,
+     information = F,
+     fill = 'lightblue')
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("neural_net.png")
+```
+
+## Training a Neural Network
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("training_graphics.png")
+```
+
+
+## Calculated Results on the Test Set
+
+```{r, echo = TRUE}
+model %>% evaluate(test, testtarget)
+pred <- model %>% predict(test)
+paste("Mean Squared Error: ", mean((testtarget-pred)^2))
+```
+
+## Predicted Value vs Actual Value
+
+```{r}
+plot(testtarget, pred, xlab=" Ground Truth", ylab="Predicted Value",
+     main="Median value of owner-occupied homes in $1000s") 
+```
