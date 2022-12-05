@@ -89,7 +89,7 @@ fit(training,trainingtarget,
 3.  Output Layer
 
 ```{r, echo=FALSE, out.height="70%", out.width="70%"}
-knitr::include_graphics("perceptron.png")
+knitr::include_graphics("images/perceptron.png")
 ```
 
 ## Boston: Predicting Median Value of Owner Occupied Homes
@@ -97,7 +97,7 @@ knitr::include_graphics("perceptron.png")
 -   506 Rows
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("code_sample.png")
+knitr::include_graphics("images/code_sample.png")
 ```
 
 ## Visual of Neural Network on the Boston Dataset
@@ -111,13 +111,13 @@ plot(n,col.hidden = 'darkgreen',
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("neural_net.png")
+knitr::include_graphics("images/neural_net.png")
 ```
 
 ## Training a Neural Network
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("training_graphics.png")
+knitr::include_graphics("images/training_graphics.png")
 ```
 
 
@@ -169,3 +169,14 @@ Cons
     + Capabilities
     + Problems
 *   Libraries and existing architectures help their development
+
+## References
+
+DeepAI. (2019, May 17). Perceptron. DeepAI. Retrieved December 4, 2022, from https://deepai.org/machine-learning-glossary-and-terms/perceptron 
+
+Finnstats. (2021, April 10). Deep neural network in R: R-bloggers. R. Retrieved December 4, 2022, from https://www.r-bloggers.com/2021/04/deep-neural-network-in-r/ 
+
+Joy, A. (2022, April 28). Pros and cons of Deep Learning. Pythonista Planet. Retrieved December 4, 2022, from https://pythonistaplanet.com/pros-and-cons-of-deep-learning/ 
+
+What is a neural network. Amazon. Retrieved December 4, 2022, from https://aws.amazon.com/what-is/neural-network/ 
+
