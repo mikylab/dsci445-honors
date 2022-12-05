@@ -68,7 +68,7 @@ fit(training,trainingtarget,
 
 ## What is a Deep Neural Network 
 
--   Computers learn to process data in a way that mimics the human brain. 
+-   Computers learn to process data by mimicking the human brain
 -   Neural networks are made of layered neurons
 -   Can work with a large volume of data
 
@@ -119,7 +119,6 @@ knitr::include_graphics("images/neural_net.png")
 ```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("images/training_graphics.png")
 ```
-
 
 ## Test Set Results
 
